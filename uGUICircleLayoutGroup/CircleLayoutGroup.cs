@@ -42,6 +42,13 @@ namespace Hont
             Execute();
         }
 
+        protected override void OnDidApplyAnimationProperties()
+        {
+            base.OnDidApplyAnimationProperties();
+
+            Execute();
+        }
+
         void Execute()
         {
             var finalSpacing = spacing;
