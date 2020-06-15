@@ -39,12 +39,14 @@ namespace Hont
             mCacheMainCamera = Camera.main;
         }
 
+#if UNITY_EDITOR
         protected override void OnValidate()
         {
             base.OnValidate();
 
             UpdateLayout();
         }
+#endif
 
         public override void CalculateLayoutInputVertical()
         {
