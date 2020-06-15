@@ -24,7 +24,7 @@ namespace Hont
                 EditorGUILayout.PropertyField(lookAtToPivotProp);
                 EditorGUILayout.PropertyField(offsetProp);
 
-                if ((CircleLayoutGroup.ModeEnum)modeProp.enumValueIndex == CircleLayoutGroup.ModeEnum.FixedStep)
+                if ((CircleLayoutGroup.EMode)modeProp.enumValueIndex == CircleLayoutGroup.EMode.FixedStep)
                     EditorGUILayout.PropertyField(spacingProp);
 
                 EditorGUILayout.PropertyField(radiusProp);
