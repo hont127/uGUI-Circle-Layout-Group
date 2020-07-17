@@ -19,11 +19,6 @@ namespace Hont
         public float radius;
         public EMode mode;
 
-        [SerializeField]
-        float referenceResolution_x;
-
-        Camera mCacheMainCamera;
-
 
         public void ManualUpdateLayout()
         {
@@ -35,8 +30,6 @@ namespace Hont
             base.OnEnable();
 
             UpdateLayout();
-
-            mCacheMainCamera = Camera.main;
         }
 
 #if UNITY_EDITOR
@@ -83,38 +76,18 @@ namespace Hont
 
         void UpdateLayout()
         {
-            var scaleFactor = 1f;
-            if (!Application.isPlaying)
-            {
-#if UNITY_EDITOR
+            if (Application.isPlaying)
+                return;
 
-                var dstCamera = Camera.main;
-                if (dstCamera == null)
-                    dstCamera = Camera.current;
-
-                if (dstCamera != null)
-                {
-                    referenceResolution_x = dstCamera.pixelWidth;
-                }
-#endif
-            }
-            else
-            {
-                if (referenceResolution_x > 0f && mCacheMainCamera != null)
-                {
-                    scaleFactor = mCacheMainCamera.pixelWidth / referenceResolution_x;
-                }
-            }
-
-            var finalSpacing = spacing * scaleFactor;
+            var finalSpacing = spacing;
 
             if (mode == EMode.AverageFill)
                 finalSpacing = ONE_CIRCLE / rectChildren.Count;
 
             for (int i = 0, iMax = rectChildren.Count; i < iMax; i++)
             {
-                var quat = Quaternion.AngleAxis(i * finalSpacing + offset * scaleFactor, Vector3.forward);
-                var current = transform.position + quat * Vector3.up * radius * scaleFactor;
+                var quat = Quaternion.AngleAxis(i * finalSpacing + offset, Vector3.forward);
+                var current = transform.position + quat * Vector3.up * radius;
 
                 rectChildren[i].position = current;
 
