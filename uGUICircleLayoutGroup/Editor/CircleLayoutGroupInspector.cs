@@ -13,34 +13,28 @@ namespace Hont
         {
             serializedObject.Update();
 
-            if (Application.isPlaying)
-                EditorGUILayout.HelpBox("Does not support runtime!", MessageType.Info);
+            var lookAtToPivotProp = serializedObject.FindProperty("lookAtToPivot");
+            var offsetProp = serializedObject.FindProperty("offset");
+            var spacingProp = serializedObject.FindProperty("spacing");
+            var radiusProp = serializedObject.FindProperty("radius");
+            var modeProp = serializedObject.FindProperty("mode");
 
-            using (new EditorGUI.DisabledScope(Application.isPlaying))
+            using (var changeCheck = new EditorGUI.ChangeCheckScope())
             {
-                var lookAtToPivotProp = serializedObject.FindProperty("lookAtToPivot");
-                var offsetProp = serializedObject.FindProperty("offset");
-                var spacingProp = serializedObject.FindProperty("spacing");
-                var radiusProp = serializedObject.FindProperty("radius");
-                var modeProp = serializedObject.FindProperty("mode");
+                EditorGUILayout.PropertyField(lookAtToPivotProp);
+                EditorGUILayout.PropertyField(offsetProp);
 
-                using (var changeCheck = new EditorGUI.ChangeCheckScope())
+                if ((CircleLayoutGroup.EMode)modeProp.enumValueIndex == CircleLayoutGroup.EMode.FixedStep)
+                    EditorGUILayout.PropertyField(spacingProp);
+
+                EditorGUILayout.PropertyField(radiusProp);
+                EditorGUILayout.PropertyField(modeProp);
+
+                if (changeCheck.changed)
                 {
-                    EditorGUILayout.PropertyField(lookAtToPivotProp);
-                    EditorGUILayout.PropertyField(offsetProp);
+                    (target as CircleLayoutGroup).ManualUpdateLayout();
 
-                    if ((CircleLayoutGroup.EMode)modeProp.enumValueIndex == CircleLayoutGroup.EMode.FixedStep)
-                        EditorGUILayout.PropertyField(spacingProp);
-
-                    EditorGUILayout.PropertyField(radiusProp);
-                    EditorGUILayout.PropertyField(modeProp);
-
-                    if (changeCheck.changed)
-                    {
-                        (target as CircleLayoutGroup).ManualUpdateLayout();
-
-                        serializedObject.ApplyModifiedProperties();
-                    }
+                    serializedObject.ApplyModifiedProperties();
                 }
             }
         }

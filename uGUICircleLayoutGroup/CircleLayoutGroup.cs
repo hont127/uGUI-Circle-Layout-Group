@@ -76,9 +76,6 @@ namespace Hont
 
         void UpdateLayout()
         {
-            if (Application.isPlaying)
-                return;
-
             var finalSpacing = spacing;
 
             if (mode == EMode.AverageFill)
@@ -87,12 +84,12 @@ namespace Hont
             for (int i = 0, iMax = rectChildren.Count; i < iMax; i++)
             {
                 var quat = Quaternion.AngleAxis(i * finalSpacing + offset, Vector3.forward);
-                var current = transform.position + quat * Vector3.up * radius;
+                var current = transform.localPosition + quat * Vector3.up * radius;
 
-                rectChildren[i].position = current;
+                rectChildren[i].localPosition = current;
 
                 if (lookAtToPivot)
-                    rectChildren[i].up = (transform.position - rectChildren[i].position).normalized;
+                    rectChildren[i].up = (transform.localPosition - rectChildren[i].localPosition).normalized;
             }
         }
     }
