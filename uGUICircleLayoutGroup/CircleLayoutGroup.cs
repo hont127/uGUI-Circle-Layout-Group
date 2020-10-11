@@ -29,37 +29,37 @@ namespace Hont
         public float Radius
         {
             get { return radius; }
-            set { radius = value; SetDirty(); }
+            set { radius = value; UpdateLayout(); }
         }
 
         public float Spacing
         {
             get { return spacing; }
-            set { spacing = value; SetDirty(); }
+            set { spacing = value; UpdateLayout(); }
         }
 
         public float Offset
         {
             get { return offset; }
-            set { offset = value; SetDirty(); }
+            set { offset = value; UpdateLayout(); }
         }
 
         public bool LookAtToPivot
         {
             get { return lookAtToPivot; }
-            set { lookAtToPivot = value; SetDirty(); }
+            set { lookAtToPivot = value; UpdateLayout(); }
         }
 
         public EMode Mode
         {
             get { return mode; }
-            set { mode = value; SetDirty(); }
+            set { mode = value; UpdateLayout(); }
         }
 
         public bool Clockwise
         {
             get { return clockwise; }
-            set { clockwise = value; SetDirty(); }
+            set { clockwise = value; UpdateLayout(); }
         }
 
 
