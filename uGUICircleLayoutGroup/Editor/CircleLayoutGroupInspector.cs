@@ -18,6 +18,7 @@ namespace Hont
             var spacingProp = serializedObject.FindProperty("spacing");
             var radiusProp = serializedObject.FindProperty("radius");
             var modeProp = serializedObject.FindProperty("mode");
+            var clockwiseProp = serializedObject.FindProperty("clockwise");
 
             using (var changeCheck = new EditorGUI.ChangeCheckScope())
             {
@@ -29,6 +30,7 @@ namespace Hont
 
                 EditorGUILayout.PropertyField(radiusProp);
                 EditorGUILayout.PropertyField(modeProp);
+                EditorGUILayout.PropertyField(clockwiseProp);
 
                 if (changeCheck.changed)
                 {
